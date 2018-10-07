@@ -21,40 +21,67 @@ NOTE 2: If there is still a tie, then return the segment with minimum starting i
 >>> maxset(A)
 [1, 2, 5]
 
->>> A = [1, 2, 5, -7, 2, 2, 2, 2]
+#>>> A = [1, 2, 5, -7, 2, 2, 2, 2]
+#>>> maxset(A)
+#[2, 2, 2, 2]
+
+>>> A = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 >>> maxset(A)
-[2, 2, 2, 2]
+[4, -1, 2, 1]
 """
 
 
-def maxset(a_int_l):
-    maximum = [a_int_l[0]]
+class Solution:
+    # @param A : tuple of integers
+    # @return an integer
+    """
+    >>> s = Solution()
+    >>> s.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4 ])
+    6
+
+    >>> s.maxSubArray([-500])
+    -500
+
+    >>> s.maxSubArray([-163, -20])
+    -20
+    """
+    def maxSubArray(self, A):
+        return(sum(maxset(A)))
+
+
+def maxset2(a_int_l):
+    max_list = [ a_int_l[0] ]
     i = 0
-    while i < len(a_int_l):
+    while 0 <= i <= len(a_int_l):
         j = i
-        while j < len(a_int_l):
-            if a_int_l[j] > 0:
-                curr = a_int_l[i:j + 1]
-                if sum(maximum) < sum(curr):  # We just found a new maximum
-                    maximum = curr
-                elif sum(maximum) == sum(curr):
-                    if len(maximum) < len(curr):
-                        maximum = curr
-                    elif maximum[i] > curr[i]:
-                        maximum = curr
+        for j in range(i, len(a_int_l)):
+            if sum(max_list) < sum(a_int_l[i:j + 1]):
+                max_list = a_int_l[i:j + 1]
+            if 0 < sum(a_int_l[i:j + 1]):
+                pass
             else:
-                break
-            j += 1
-        i = j + 1
-    return maximum
+                i = j + 1
+        i += 1
+    return max_list
+
+
+maxset = maxset2
 
 
 def main():
+    s = Solution()
+
     a_int_l = [1, 2, 5, -7, 2, 3]
     print(maxset(a_int_l))
+    print(s.maxSubArray(a_int_l))
+
 
     a_int_l = [1, 2, 5, -7, 2, 2, 2, 2]
     print(maxset(a_int_l))
+    print(s.maxSubArray(a_int_l))
+
+    a_int_l = [ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]
+    print(s.maxSubArray(a_int_l))
 
 
 if __name__ == '__main__':
