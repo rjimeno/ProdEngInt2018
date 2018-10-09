@@ -16,14 +16,6 @@ The answer is [1, 2, 5] as its sum is larger than [2, 3]
 
 NOTE: If there is a tie, then compare with segment's length and return segment which has maximum length
 NOTE 2: If there is still a tie, then return the segment with minimum starting index
-
->>> A = [1, 2, 5, -7, 2, 3]
->>> maxset(A)
-[1, 2, 5]
-
->>> A = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
->>> maxset(A)
-[4, -1, 2, 1]
 """
 
 
@@ -32,8 +24,19 @@ class Solution:
     # @return an integer
     """
     >>> s = Solution()
+
+    >>> A = [1, 2, 5, -7, 2, 3]
+    >>> s.maxSubArray(A)
+    8
+
     >>> s.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4 ])
     6
+
+    >>> s.maxSubArray([1, 2, 5, -7, 2, 2, 2, 2])
+    9
+
+    >>> s.maxSubArray([2, 5, -7, 2, 2, 2, 2])
+    8
 
     >>> s.maxSubArray([-500])
     -500
@@ -41,46 +44,17 @@ class Solution:
     >>> s.maxSubArray([-163, -20])
     -20
     """
+    # The following function was actually copied from:
+    # https://github.com/SKantar/InterviewBit/blob/master/02_Arrays/max_sum_contiguous_subarray.py
     def maxSubArray(self, A):
-        return(sum(maxset(A)))
+        tmp_max = tmp_sum = A[0]
 
-
-def maxset2(a_int_l):
-    max_list = [ a_int_l[0] ]
-    i = 0
-    while 0 <= i <= len(a_int_l):
-        j = i
-        for j in range(i, len(a_int_l)):
-            if sum(max_list) < sum(a_int_l[i:j + 1]):
-                max_list = a_int_l[i:j + 1]
-            if 0 < sum(a_int_l[i:j + 1]):
-                pass
-            else:
-                i = j + 1
-        i += 1
-    return max_list
-
-
-maxset = maxset2
-
-
-def main():
-    s = Solution()
-
-    a_int_l = [1, 2, 5, -7, 2, 3]
-    print(maxset(a_int_l))
-    print(s.maxSubArray(a_int_l))
-
-
-    a_int_l = [1, 2, 5, -7, 2, 2, 2, 2]
-    print(maxset(a_int_l))
-    print(s.maxSubArray(a_int_l))
-
-    a_int_l = [ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]
-    print(s.maxSubArray(a_int_l))
+        for i in range(1, len(A)):
+            tmp_sum = max(A[i], tmp_sum + A[i])
+            tmp_max = max(tmp_sum, tmp_max)
+        return tmp_max
 
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-    main()
