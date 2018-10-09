@@ -21,10 +21,6 @@ NOTE 2: If there is still a tie, then return the segment with minimum starting i
 >>> maxset(A)
 [1, 2, 5]
 
-#>>> A = [1, 2, 5, -7, 2, 2, 2, 2]
-#>>> maxset(A)
-#[2, 2, 2, 2]
-
 >>> A = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 >>> maxset(A)
 [4, -1, 2, 1]
