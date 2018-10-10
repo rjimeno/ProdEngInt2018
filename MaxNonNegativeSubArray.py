@@ -18,43 +18,38 @@ NOTE: If there is a tie, then compare with segment's length and return segment w
 NOTE 2: If there is still a tie, then return the segment with minimum starting index
 """
 
-
 class Solution:
-    # @param A : tuple of integers
-    # @return an integer
-    """
-    >>> s = Solution()
+    # @param A : list of integers
+    # @return a list of integers
+    def maxset(self, A):
+        """
+        >>> s = Solution()
+        >>> s.maxset([0, 0, -1, 0])
+        [0, 0]
 
-    >>> A = [1, 2, 5, -7, 2, 3]
-    >>> s.maxSubArray(A)
-    8
+        >>> s = Solution()
+        >>> s.maxset([1, 2, 5, -7, 2, 3])
+        [1, 2, 5]
+        """
+        max_sum = max_left = max_right = -1
+        tmp_sum = left = 0
 
-    >>> s.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4 ])
-    6
+        for i, elem in enumerate(A):
+            if elem >= 0:
+                tmp_sum += elem
+            else:
+                if tmp_sum > max_sum:
+                    max_sum, max_left, max_right = tmp_sum, left, i
+                tmp_sum = 0
+                left = i + 1
+        else:
+            if tmp_sum > max_sum:
+                max_left, max_right = left, len(A)
 
-    >>> s.maxSubArray([1, 2, 5, -7, 2, 2, 2, 2])
-    9
+        return [] if max_left == max_right == -1 else A[max_left: max_right]
 
-    >>> s.maxSubArray([2, 5, -7, 2, 2, 2, 2])
-    8
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-    >>> s.maxSubArray([-500])
-    -500
-
-    >>> s.maxSubArray([-163, -20])
-    -20
-    """
-    # The following function was actually copied from:
-    # https://github.com/SKantar/InterviewBit/blob/master/02_Arrays/max_sum_contiguous_subarray.py
-    def maxSubArray(self, A):
-        tmp_max = tmp_sum = A[0]
-
-        for i in range(1, len(A)):
-            tmp_sum = max(A[i], tmp_sum + A[i])
-            tmp_max = max(tmp_sum, tmp_max)
-        return tmp_max
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
     doctest.testmod()
