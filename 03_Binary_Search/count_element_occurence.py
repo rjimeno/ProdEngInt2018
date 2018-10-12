@@ -84,5 +84,4 @@ def binary_search(a, x, find):
 
 if __name__ == '__main__':
     import doctest
-
     doctest.testmod()
