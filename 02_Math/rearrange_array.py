@@ -12,6 +12,7 @@ Lets say N = size of the array. Then, following holds true :
     2. N * N does not overflow for a signed integer
 """
 
+
 class Solution:
     # @param A : list of integers
     # Modify the array A which is passed by reference.
@@ -54,18 +55,17 @@ class Solution:
         3 4 2 0 1
         """
         # The following solution was copied from:
-        # https://github.com/SKantar/InterviewBit/blob/master/02_Math/rearrange_array.py
-        n = len(a)
-        for i in range(n):
-            a[i] += (a[a[i]] % n) * n
+        l = len(a)
+        b = a[:]
+        for i in range(l):
+            b[i] = a[a[i]]
+        for i in range(l):
+            a[i] = b[i]
+        # print(" ".join(str(x) for x in a))
 
-        for i in range(n):
-            a[i] //= n
-        #print(" ".join(str(x) for x in a))
 
 if __name__ == '__main__':
     import doctest
     # doctest.testmod()
     # Will need to use something extra for the tests;
     # perhaps an argument to doctest.testmod() or a decorator.
-
