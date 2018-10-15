@@ -42,40 +42,9 @@ def add_binary_strings(a, b):
     >>> add_binary_strings("1", "11")
     '100'
     """
-    a, b = list(a), list(b)
-    while len(a) < len(b):
-        a = ['0'] + a
-    while len(b) < len(a):
-        b = ['0'] + b
-    s = ['0'] * len(a)
-    #a, b = reversed(a), reversed(b)
-    a.reverse()
-    b.reverse()
-    carry = '0'
-    for i in range(len(s)):
-        if '0' == a[i]:
-            if '0' == b[i]:
-                s[i] = carry
-                carry = '0'
-            elif '1' == b[i]:
-                if '0' == carry:
-                    s[i] = "1"
-                elif '1' == carry:
-                    s[i] = '0'
-                    carry = "1"
-        elif '1' == a[i]:
-            if '0' == b[i]:
-                if '0' == carry:
-                    s[i] = "1"
-                elif '1' == carry:
-                    s[i] = '0'
-            elif '1' == b[i]:
-                s[i] = carry
-                carry = '1'
-    s.reverse()
-    if "1" == carry:
-        s = ['1'] + s
-    return ''.join(s)
+    a, b = int(a, 2), int(b, 2)
+    s = "{:b}".format(a + b)
+    return s
 
 
 if __name__ == '__main__':
