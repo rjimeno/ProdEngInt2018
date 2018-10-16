@@ -41,9 +41,8 @@ class Solution:
         """
         smalls = [float("inf")] * b
         for n in a:
-            for i in range(len(smalls)):
-                if n < smalls[i]:
-                    smalls.insert(i, n)
-                    smalls.pop()
-                    break
+            if n < smalls[-1]:
+                smalls.append(n)
+                smalls.sort()
+                smalls.pop()
         return smalls.pop()
