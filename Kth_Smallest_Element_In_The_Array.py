@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import bisect
+import heapq
 
 """
 Kth Smallest Element in the Array
@@ -41,21 +41,4 @@ class Solution:
         >>> s.kthsmallest(b=3, a=[2, 1, 4, 3, 2])
         2
         """
-        mins = list(a[:b])
-        mins.sort()
-        for i in a[b:]:
-            if i < mins[-1]:
-                bisect.insort(mins, i)
-                # mins.append(i)
-                # mins.sort()
-                mins = mins[:b]
-        return max(mins)
-        '''
-        smalls = [float("inf")] * b
-        for n in a:
-            if n < smalls[-1]:
-                smalls.append(n)
-                smalls.sort()
-                smalls.pop()
-        return smalls.pop()
-        '''
+        return heapq.nsmallest(b, a).pop()
